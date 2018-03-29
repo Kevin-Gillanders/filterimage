@@ -217,7 +217,7 @@ print("HSL to RGB : {}\n".format(hslrgb))
 print("Hue : {}\nSaturation : {}\nIntensity : {}".format(*hsi))
 print("HSI to RGB : {}\n".format(hsirgb))
 
-# test
+
 
 # hue = [i/sum(pix)]
 # top = ((R - G) + (R - B))
