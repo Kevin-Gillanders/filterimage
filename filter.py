@@ -182,7 +182,7 @@ def HSItoRGB(hsi):
 
 
 	if h < 2 * math.pi / 3:
-		
+		print(1)
 		x = i * (1 - s)
 		y = i * (1 + ((s * math.cos(h)) / math.cos(math.pi / 3 - h)))
 		z = 3 * i - (x + y)    
@@ -191,6 +191,7 @@ def HSItoRGB(hsi):
 		r = y 
 		g = z
 	elif h >= 2 * math.pi / 3 and h < 4 * math.pi / 3:
+		print(2)
 		h = h - 2 * math.pi / 3
 	
 		x = i * (1 - s)
@@ -201,6 +202,7 @@ def HSItoRGB(hsi):
 		g = y
 		b = z
 	elif h >= 4 * math.pi / 3 and h < 2 * math.pi:
+		print(3)
 		h = h - 4 * math.pi / 3
 		
 		x = i * (1 - s)
