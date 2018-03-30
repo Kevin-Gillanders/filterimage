@@ -169,30 +169,66 @@ def HSItoRGB(hsi):
 	h = hsi[0]
 	if h == 0:
 		h += 0.01
-	h *= 100
-	s = hsv[1]
-	i = hsv[2]
-	
-	print(h)
+	s = hsi[1]
+	i = hsi[2]
 
-	if h > 0 and h <= 120:
-		h = 0 
-		r = i * ( (1 + (s * math.cos(h))) / (math.cos(60 - h)) )
-		b = i - i * s
-		g = 3 * i - r - b
-	elif h > 120 and h <= 240:
-		h = h - 120
-		r = i - i * s
-		g = i * ( (1 + (s * math.cos(h))) / (math.cos(60 - h)) )
-		b = 3 * i - r - g
-	elif h > 240 and h <= 360:
-		h = h - 240
-		g = i - i * s
-		b = i * ( (1 + (s * math.cos(h))) / (math.cos(60 - h)) )
-		r = 3 * i - r - g
+	h *= 360        
+	##        s *= 100
+	##        i *= 255
+
+	h = h * math.pi / 180    
+	print('here here here : : : : ',h)
+
+
+
+	if h < 2 * math.pi / 3:
 		
-	return (r, g, b)
+		x = i * (1 - s)
+		y = i * (1 + ((s * math.cos(h)) / math.cos(math.pi / 3 - h)))
+		z = 3 * i - (x + y)    
+		
+		b = x
+		r = y 
+		g = z
+	elif h >= 2 * math.pi / 3 and h < 4 * math.pi / 3:
+		h = h - 2 * math.pi / 3
 	
+		x = i * (1 - s)
+		y = i * (1 + ((s * math.cos(h)) / math.cos(math.pi / 3 - h)))
+		z = 3 * i - (x + y)    
+
+		r = x 
+		g = y
+		b = z
+	elif h >= 4 * math.pi / 3 and h < 2 * math.pi:
+		h = h - 4 * math.pi / 3
+		
+		x = i * (1 - s)
+		y = i * (1 + ((s * math.cos(h)) / math.cos(math.pi / 3 - h)))
+		z = 3 * i - (x + y)    
+
+		g = x
+		b = y
+		r = z
+	##	if h > 0 and h <= 120:
+	##		h = 0 
+	##		r = i * ( (1 + (s * math.cos(h))) / (math.cos(60 - h)) )
+	##		b = i - i * s
+	##		g = 3 * i - r - b
+	##	elif h > 120 and h <= 240:
+	##		h = h - 120
+	##		r = i - i * s
+	##		g = i * ( (1 + (s * math.cos(h))) / (math.cos(60 - h)) )
+	##		b = 3 * i - r - g
+	##	elif h > 240 and h <= 360:
+	##		h = h - 240
+	##		g = i - i * s
+	##		b = i * ( (1 + (s * math.cos(h))) / (math.cos(60 - h)) )
+	##		r = 3 * i - b - g
+
+
+	return (r*255, g*255, b*255)
+
 	
 image = Image.open("Jelly_Beans.jpg")#.convert('L')
 
