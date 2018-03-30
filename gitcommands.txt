@@ -1,3 +1,4 @@
 git add <file name> # adds file to staging
 git commit # commits file to locale master
+# add message esc :x! 
 git push origin master # pushs origin onto github, merges with master
