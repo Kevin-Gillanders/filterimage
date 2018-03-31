@@ -37,9 +37,20 @@ def getHSVSaturation(delta, cmax):
 
 	
 def getHSIHue(R, G, B):
+	# print(1)
 	top = (R - G) + (R - B)
 	bot = math.pow( (math.pow((R - G), 2) + ((R - B)*(G - B))) , 0.5)
-	h =  math.acos( top / bot ) 
+	# print(2)
+	# print("RGB {} , {} , {}".format(R, G, B) )
+	# print("top : ", top)
+	# print("bot : ", bot)
+	
+	val = top / bot
+	if val > 1:
+		val = 1.0
+	elif val < -1:
+		val = -1.0
+	h =  math.acos( val) 
 	
 	if B > G:
 		h = 360 - h
@@ -177,12 +188,12 @@ def HSItoRGB(hsi):
 	##        i *= 255
 
 	h = h * math.pi / 180    
-	print('here here here : : : : ',h)
+	# print(h)
 
 
 
 	if h < 2 * math.pi / 3:
-		print(1)
+		# print(1)
 		x = i * (1 - s)
 		y = i * (1 + ((s * math.cos(h)) / math.cos(math.pi / 3 - h)))
 		z = 3 * i - (x + y)    
@@ -191,7 +202,7 @@ def HSItoRGB(hsi):
 		r = y 
 		g = z
 	elif h >= 2 * math.pi / 3 and h < 4 * math.pi / 3:
-		print(2)
+		# print(2)
 		h = h - 2 * math.pi / 3
 	
 		x = i * (1 - s)
@@ -201,8 +212,8 @@ def HSItoRGB(hsi):
 		r = x 
 		g = y
 		b = z
-	elif h >= 4 * math.pi / 3 and h < 2 * math.pi:
-		print(3)
+	elif h >= 4 * math.pi / 3: #and h < 2 * math.pi:
+		# print(3)
 		h = h - 4 * math.pi / 3
 		
 		x = i * (1 - s)
@@ -232,28 +243,54 @@ def HSItoRGB(hsi):
 	return (r*255, g*255, b*255)
 
 	
+def breakdownImage(im, width, height):
+	pixels = image.load()
+	
+	hsl = []  
+	hsv = [] 
+	hsi = []
+	hslrgb = []
+	hsvrgb = [] 
+	hsirgb = []
+	
+	for y in range(0, width):
+		for x in range(0, height):
+			pix = pixels[y, x]
+		
+			hsl = RGBtoHSL(pix)
+			hsv = RGBtoHSV(pix)
+			hsi = RGBtoHSI(pix)
+
+			hslrgb = HSLtoRGB(hsl)
+			hsvrgb = HSVtoRGB(hsv)
+			hsirgb = HSItoRGB(hsi)
+	
+	return hsl, hsv, hsi, hslrgb, hsvrgb, hsirgb
+
+	
 image = Image.open("Jelly_Beans.jpg")#.convert('L')
 
-pix = image.load()[10,10]
-hsl = RGBtoHSL(pix)
-hsv = RGBtoHSV(pix)
-hsi = RGBtoHSI(pix)
-print("RGB : {}\n".format(pix))
+width, height = image.size
 
-hslrgb = HSLtoRGB(hsl)
-hsvrgb = HSVtoRGB(hsv)
-hsirgb = HSItoRGB(hsi)
-
-print("Hue : {}\nSaturation : {}\nValue : {}\n".format(*hsv))
-print("HSV to RGB : {}\n".format(hsvrgb))
+hsl, hsv, hsi, hslrgb, hsvrgb, hsirgb = breakdownImage(image, width, height )
 
 
-print("Hue : {}\nSaturation : {}\nLuminence : {}\n".format(*hsl))
-print("HSL to RGB : {}\n".format(hslrgb))
+# print()
 
 
-print("Hue : {}\nSaturation : {}\nIntensity : {}".format(*hsi))
-print("HSI to RGB : {}\n".format(hsirgb))
+# print("RGB : {}\n".format(pix))
+
+
+# print("Hue : {}\nSaturation : {}\nValue : {}\n".format(*hsv))
+# print("HSV to RGB : {}\n".format(hsvrgb))
+
+
+# print("Hue : {}\nSaturation : {}\nLuminence : {}\n".format(*hsl))
+# print("HSL to RGB : {}\n".format(hslrgb))
+
+
+# print("Hue : {}\nSaturation : {}\nIntensity : {}".format(*hsi))
+# print("HSI to RGB : {}\n".format(hsirgb))
 
 
 
