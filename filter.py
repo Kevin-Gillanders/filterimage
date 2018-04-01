@@ -246,35 +246,53 @@ def HSItoRGB(hsi):
 def breakdownImage(im, width, height):
 	pixels = image.load()
 	
-	hsl = []  
-	hsv = [] 
-	hsi = []
-	hslrgb = []
-	hsvrgb = [] 
-	hsirgb = []
+	hslIm = []  
+	hsvIm = [] 
+	hsiIm = []
+	hslrgbIm = []
+	hsvrgbIm = [] 
+	hsirgbIm = []
 	
 	for y in range(0, width):
 		for x in range(0, height):
 			pix = pixels[y, x]
 		
-			hsl = RGBtoHSL(pix)
-			hsv = RGBtoHSV(pix)
-			hsi = RGBtoHSI(pix)
-
-			hslrgb = HSLtoRGB(hsl)
-			hsvrgb = HSVtoRGB(hsv)
-			hsirgb = HSItoRGB(hsi)
+			hslIm.append( RGBtoHSL(pix))
+			hsvIm.append( RGBtoHSV(pix))
+			hsiIm.append( RGBtoHSI(pix))
+	#TODO decide if this should be 1D of multi dim
+	hslrgbIm = list(map(HSLtoRGB, hslIm))
+	hsvrgbIm = list(map(HSVtoRGB, hsvIm))
+	hsirgbIm = list(map(HSItoRGB, hsiIm))
 	
-	return hsl, hsv, hsi, hslrgb, hsvrgb, hsirgb
+	return hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm
 
 	
 image = Image.open("Jelly_Beans.jpg")#.convert('L')
 
 width, height = image.size
 
-hsl, hsv, hsi, hslrgb, hsvrgb, hsirgb = breakdownImage(image, width, height )
+print(width, height)
+px = image.load()
 
+hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm = breakdownImage(image, width, height )
+# count = 0 
+# with open('hsltest.txt', 'w') as r:
+	# for x, y in zip(hsiIm, hsirgbIm):
+		# r.write("{}\n{}\n{}\n=========\n".format(x, y, px[0, count % width]))
+		# print(px[count % height, count % width], count)
+		# count += 1
+		# if count == 200:
+			# break
+window = 0
 
+print(window)
+# for idx, x in enumerate(hsvrgbIm):
+	
+	
+
+		
+# print(hslIm)
 # print()
 
 
