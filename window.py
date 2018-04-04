@@ -21,7 +21,7 @@ def slidingWindow(image, windowSize):
 			print("x : {} y : {} ".format(x, y))
 			for innerX in range(x, x + windowSize):
 				print("inner x : {} y : {} ".format(innerX, y))
-				print(image[y: y+ windowSize][x])
+				print(image[y: y+ windowSize][innerX])
 				
 			# pp.pprint(image[y:y + windowSize, x:x + windowSize])
 			# pp.pprint(max(image[y:y + windowSize, x:x + windowSize]))
