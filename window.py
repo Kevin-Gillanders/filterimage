@@ -18,13 +18,17 @@ def slidingWindow(image, windowSize):
 	# Segments image into window sized chunks along the x axis
 	for y in range(0, len(image), windowSize):
 		for x in range(0, len(image[0]), windowSize):
-			print("x : {} y : {} ".format(x, y))
+			# print("x : {} y : {} ".format(x, y))
 			maximum = 0
 			for innerX in range(x, x + windowSize):
 				for innerY in range(y, y + windowSize):
 					# print("inner x : {} y : {} ".format(innerX , y))
 					# print(image[innerY][innerX])
-					maximum = max(maximum, image[innerY][innerX])
+					if innerX == len(image[0]) or innerY == len(image):
+						break
+					else:
+						print("x : {} y : {} ".format(innerX, innerY))
+						maximum = max(maximum, image[innerY][innerX])
 			print('max : {}'.format(maximum))
 			print("change place \n\n")
 			
