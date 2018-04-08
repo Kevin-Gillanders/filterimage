@@ -9,11 +9,11 @@ import numpy as np
 def slidingWindow(image, windowSize):
 	tmp = []
 	# image = np.array(image)
-	pp.pprint(image)
+	# pp.pprint(image)
 	print('window sizw ', windowSize)
 	print('Amount of rows', len(image))
 	print()
-	# pp.pprint(image)
+	pp.pprint(image)
 	
 	# Segments image into window sized chunks along the x axis
 	for y in range(0, len(image), windowSize):
@@ -22,15 +22,22 @@ def slidingWindow(image, windowSize):
 			maximum = 0
 			for innerX in range(x, x + windowSize):
 				for innerY in range(y, y + windowSize):
-					# print("inner x : {} y : {} ".format(innerX , y))
 					# print(image[innerY][innerX])
-					if innerX == len(image[0]) or innerY == len(image):
+					if innerX >= len(image[0]) or innerY >= len(image):
 						break
 					else:
-						print("x : {} y : {} ".format(innerX, innerY))
+						# print("x : {} y : {} \nval : {}\n=========".format(innerX, innerY, image[innerY][innerX]))
 						maximum = max(maximum, image[innerY][innerX])
-			print('max : {}'.format(maximum))
-			print("change place \n\n")
+			for innerX in range(x, x + windowSize):
+				for innerY in range(y, y + windowSize):
+					# print(image[innerY][innerX])
+					if innerX >= len(image[0]) or innerY >= len(image):
+						break
+					else:
+						# print("x : {} y : {} \nval : {}\n=========".format(innerX, innerY, image[innerY][innerX]))
+						image[innerY][innerX] = maximum
+			# print('max : {}'.format(maximum))
+			# print("change place \n\n")
 			
 			# pp.pprint(image[y:y + windowSize, x:x + windowSize])
 			# pp.pprint(max(image[y:y + windowSize, x:x + windowSize]))
@@ -41,6 +48,7 @@ def slidingWindow(image, windowSize):
 	size = len(image)
 	# pp.pprint(image)
 	fin = []
+	pp.pprint(image)
 	
 	# for idx, row in enumerate(image):
 		# tmp.append(row)
@@ -81,7 +89,7 @@ win =  [[1,     2,     3,     4],
 		# tmp.append(y)
 	# win.append(tmp)
 	
-print("Amount : {}".format(len(win)* len(win[0])))
+# print("Amount : {}".format(len(win)* len(win[0])))
 t = time.time()
 
 win = slidingWindow(win, 3)
