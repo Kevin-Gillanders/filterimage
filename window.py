@@ -1,6 +1,8 @@
 import pprint as pp
 import time
 import numpy as np
+from random import randint
+import math
 # def chunks(l, n): 
 	# for i in range(0, len(l), n):
 		# return l[i:i + n]
@@ -13,17 +15,18 @@ def slidingWindow(image, windowSize):
 	print('window sizw ', windowSize)
 	print('Amount of rows', len(image))
 	print()
-	pp.pprint(image)
-	
+	# pp.pprint(image)
+	width = len(image)
+	height = len(image[0])
 	# Segments image into window sized chunks along the x axis
-	for y in range(0, len(image), windowSize):
-		for x in range(0, len(image[0]), windowSize):
+	for y in range(0, width, windowSize):
+		for x in range(0, height, windowSize):
 			# print("x : {} y : {} ".format(x, y))
 			maximum = 0
 			for innerX in range(x, x + windowSize):
 				for innerY in range(y, y + windowSize):
 					# print(image[innerY][innerX])
-					if innerX >= len(image[0]) or innerY >= len(image):
+					if innerX >= height or innerY >= len(image):
 						break
 					else:
 						# print("x : {} y : {} \nval : {}\n=========".format(innerX, innerY, image[innerY][innerX]))
@@ -31,7 +34,7 @@ def slidingWindow(image, windowSize):
 			for innerX in range(x, x + windowSize):
 				for innerY in range(y, y + windowSize):
 					# print(image[innerY][innerX])
-					if innerX >= len(image[0]) or innerY >= len(image):
+					if innerX >= height or innerY >= width:
 						break
 					else:
 						# print("x : {} y : {} \nval : {}\n=========".format(innerX, innerY, image[innerY][innerX]))
@@ -48,7 +51,7 @@ def slidingWindow(image, windowSize):
 	size = len(image)
 	# pp.pprint(image)
 	fin = []
-	pp.pprint(image)
+	# pp.pprint(image)
 	
 	# for idx, row in enumerate(image):
 		# tmp.append(row)
@@ -70,7 +73,65 @@ def slidingWindow(image, windowSize):
 			# print("dsf")		
 			# pp.pprint(y)
 	# pp.pprint(zip(*image))
-	return(fin)
+
+def slide(im, window, width, height):
+	# max = [None] * math.ceil((len(im)/ width) + (width / window)* (len(im)/ width))
+	# Number of chunks which are produced
+	max = [None] * math.ceil(math.ceil(width / window) * math.ceil(height / window))
+	# print(len(max))
+	innerMax = 0
+	count = 0
+	mov = 0
+	rows = 0
+	imSize = len(im)
+	# t1 = time.time()
+	for idx in range(0, imSize):
+		pos = idx % width
+		
+		if im[idx] > innerMax:
+			innerMax = im[idx]
+		if (pos + 1) % width == 0:
+			max[count] = innerMax
+			innerMax = 0
+			count = mov
+			rows += 1
+			if (rows + 1) % window == 0:
+				mov = mov +math.ceil(width / window)
+		elif (pos + 1) % window == 0:
+			# print(count)
+			max[count] = innerMax
+			innerMax = 0
+			count += 1
+	# print("inital loop {} ".format(time.time() - t1))
+	
+	count = 0
+	mov = 0
+	rows = 0		
+	# t2 = time.time()
+	for idx in range(0 , imSize ):
+		pos = idx % width
+		
+
+		if (pos + 1) % width == 0:
+			# print('***\n', im[idx])
+			im[idx] = max[count] 
+			# print(im[idx], '\n&&&&\n')
+			count = mov
+			rows += 1
+			if (rows + 1) % window == 0:
+				mov = mov +math.ceil(width / window)
+			continue
+		elif (pos + 1) % window == 0:
+			# print('8008\n', im[idx])
+			im[idx] = max[count] 
+			# print(im[idx], '\n$%£\n')
+			count += 1
+			continue
+		# print('8008\n', im[idx])
+		im[idx] = max[count] 
+		# print(im[idx], '\n$%£\n')
+	# print("second loop {}".format(time.time()- t2))
+	# print(max)
 
 win =  [[1,     2,     3,     4],
 		[11,    22,    33,    44],
@@ -78,22 +139,41 @@ win =  [[1,     2,     3,     4],
 		[1111,  2222,  3333,  4444],
 		[11111, 22222, 33333, 44444]]
 
-# win =  [[1,    2,    3,    4],
-		# [5,    6,    7,    8]]	
+# win =  [1,   2,   3,   4,   5,
+        # 6,	 7,   8,   9,   10]	
 
 		
-# win = []
-# for x in range(0, 1280):
+# win =  [1,     2,     3,     4,
+		# 11,    22,    33,    44,
+		# 111,   222,   333,   444,
+		# 1111,  2222,  3333,  4444,
+		# 11111, 22222, 33333, 44444,
+		# 11111, 22222, 33333, 44444,
+		# 11111, 22222, 33333, 44444]
+
+		
+win = []
+
+for x in range(0, 1200):
+	for y in range(0, 720):
+		win.append(randint(0,1000))
+
+# for x in range(0, 1200):
 	# tmp = []
 	# for y in range(0, 720):
-		# tmp.append(y)
+		# tmp.append(randint(0,1000))
 	# win.append(tmp)
 	
 # print("Amount : {}".format(len(win)* len(win[0])))
+# pp.pprint(win)
 t = time.time()
 
-win = slidingWindow(win, 3)
-
+slide(win, 3, 720, 1200)
+# slidingWindow(win, 3)
 print("time took : {} ".format(time.time() - t))
+# for idx , x in enumerate(win):
+	# print(x, end = ', ')
+	# if (idx + 1) % 4 == 0:
+		# print()
+	
 
-# pp.pprint(win)
