@@ -75,7 +75,7 @@ def slidingWindow(image, windowSize):
 	# pp.pprint(zip(*image))
 
 def slide(im, window, width, height):
-	# max = [None] * math.ceil((len(im)/ width) + (width / window)* (len(im)/ width))
+
 	# Number of chunks which are produced
 	max = [None] * math.ceil(math.ceil(width / window) * math.ceil(height / window))
 	# print(len(max))
@@ -87,18 +87,27 @@ def slide(im, window, width, height):
 	# t1 = time.time()
 	for idx in range(0, imSize):
 		pos = idx % width
-		
 		if im[idx] > innerMax:
+			# If current value is new max replace old max
 			innerMax = im[idx]
 		if (pos + 1) % width == 0:
+			# if the next value is on a new row
+			# Set max 
 			max[count] = innerMax
 			innerMax = 0
+			# set index in max array back to the start
 			count = mov
+			# We have now moved down a row, inc row
 			rows += 1
+			# If the next row is no longer within this set of windows
+			# update the value we update count with, effectively moving zero
 			if (rows + 1) % window == 0:
+				# increase the incrementor by the amount of windows the can fit on a line
+				# |_|_|_|_|  -> inc 4 (4 windows)
 				mov = mov +math.ceil(width / window)
 		elif (pos + 1) % window == 0:
-			# print(count)
+			# If we are at the edge of a window
+			# set new max 
 			max[count] = innerMax
 			innerMax = 0
 			count += 1
@@ -154,22 +163,22 @@ win =  [[1,     2,     3,     4],
 		
 win = []
 
-for x in range(0, 1200):
-	for y in range(0, 720):
-		win.append(randint(0,1000))
-
 # for x in range(0, 1200):
-	# tmp = []
 	# for y in range(0, 720):
-		# tmp.append(randint(0,1000))
-	# win.append(tmp)
+		# win.append(randint(0,1000))
+
+for x in range(0, 1200):
+	tmp = []
+	for y in range(0, 720):
+		tmp.append(randint(0,1000))
+	win.append(tmp)
 	
 # print("Amount : {}".format(len(win)* len(win[0])))
 # pp.pprint(win)
 t = time.time()
 
-slide(win, 3, 720, 1200)
-# slidingWindow(win, 3)
+# slide(win, 3, 720, 1200)
+slidingWindow(win, 3)
 print("time took : {} ".format(time.time() - t))
 # for idx , x in enumerate(win):
 	# print(x, end = ', ')
