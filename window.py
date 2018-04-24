@@ -142,47 +142,48 @@ def slide(im, window, width, height):
 	# print("second loop {}".format(time.time()- t2))
 	# print(max)
 
-win =  [[1,     2,     3,     4],
-		[11,    22,    33,    44],
-		[111,   222,   333,   444],
-		[1111,  2222,  3333,  4444],
-		[11111, 22222, 33333, 44444]]
+if __name__ == "__main__":
+	win =  [[1,     2,     3,     4],
+			[11,    22,    33,    44],
+			[111,   222,   333,   444],
+			[1111,  2222,  3333,  4444],
+			[11111, 22222, 33333, 44444]]
 
-# win =  [1,   2,   3,   4,   5,
-        # 6,	 7,   8,   9,   10]	
+	# win =  [1,   2,   3,   4,   5,
+			# 6,	 7,   8,   9,   10]	
 
+			
+	# win =  [1,     2,     3,     4,
+			# 11,    22,    33,    44,
+			# 111,   222,   333,   444,
+			# 1111,  2222,  3333,  4444,
+			# 11111, 22222, 33333, 44444,
+			# 11111, 22222, 33333, 44444,
+			# 11111, 22222, 33333, 44444]
+
+			
+	win = []
+
+	# for x in range(0, 1200):
+		# for y in range(0, 720):
+			# win.append(randint(0,1000))
+
+	for x in range(0, 1200):
+		tmp = []
+		for y in range(0, 720):
+			tmp.append(randint(0,1000))
+		win.append(tmp)
 		
-# win =  [1,     2,     3,     4,
-		# 11,    22,    33,    44,
-		# 111,   222,   333,   444,
-		# 1111,  2222,  3333,  4444,
-		# 11111, 22222, 33333, 44444,
-		# 11111, 22222, 33333, 44444,
-		# 11111, 22222, 33333, 44444]
+	# print("Amount : {}".format(len(win)* len(win[0])))
+	# pp.pprint(win)
+	t = time.time()
 
+	# slide(win, 3, 720, 1200)
+	slidingWindow(win, 3)
+	print("time took : {} ".format(time.time() - t))
+	# for idx , x in enumerate(win):
+		# print(x, end = ', ')
+		# if (idx + 1) % 4 == 0:
+			# print()
 		
-win = []
-
-# for x in range(0, 1200):
-	# for y in range(0, 720):
-		# win.append(randint(0,1000))
-
-for x in range(0, 1200):
-	tmp = []
-	for y in range(0, 720):
-		tmp.append(randint(0,1000))
-	win.append(tmp)
-	
-# print("Amount : {}".format(len(win)* len(win[0])))
-# pp.pprint(win)
-t = time.time()
-
-# slide(win, 3, 720, 1200)
-slidingWindow(win, 3)
-print("time took : {} ".format(time.time() - t))
-# for idx , x in enumerate(win):
-	# print(x, end = ', ')
-	# if (idx + 1) % 4 == 0:
-		# print()
-	
 
