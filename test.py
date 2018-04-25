@@ -39,7 +39,7 @@ px = list(px)
 	# px[y] = (0, 0, px[y][2])
 
 image.putdata(px)
-image.save(str(win)+'WindowSize.bmp')
+image.save(str(win)+'WindowSize.jpeg', 'jpeg')
 image.show()
 
 print('it took : {}'.format(time.time()-t))
