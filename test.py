@@ -1,7 +1,7 @@
 from PIL import Image
 import window
 import time
-image = Image.open("frymire.png")#.convert('L')
+image = Image.open("./testImages/frymire.png")#.convert('L')
 win = 3
 minMax = False
 width, height = image.size
