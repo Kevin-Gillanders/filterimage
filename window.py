@@ -74,12 +74,15 @@ def slidingWindow(image, windowSize):
 			# pp.pprint(y)
 	# pp.pprint(zip(*image))
 
-def slide(im, window, width, height):
+def slide(im, window, width, height, minMax):
 
 	# Number of chunks which are produced
 	max = [None] * math.ceil(math.ceil(width / window) * math.ceil(height / window))
 	# print(len(max))
-	innerMax = 0
+	if minMax:
+		exemplar = 0
+	else:
+		exemplar = 100000
 	count = 0
 	mov = 0
 	rows = 0
@@ -87,14 +90,20 @@ def slide(im, window, width, height):
 	# t1 = time.time()
 	for idx in range(0, imSize):
 		pos = idx % width
-		if im[idx] > innerMax:
-			# If current value is new max replace old max
-			innerMax = im[idx]
+		if minMax:
+			if im[idx] > exemplar:
+				# If current value is new max replace old max
+				exemplar = im[idx]
+		else:
+			if im[idx] < exemplar:
+				# If current value is new min replace old max
+				exemplar = im[idx]
+		
 		if (pos + 1) % width == 0:
 			# if the next value is on a new row
 			# Set max 
-			max[count] = innerMax
-			innerMax = 0
+			max[count] = exemplar
+			exemplar = 0
 			# set index in max array back to the start
 			count = mov
 			# We have now moved down a row, inc row
@@ -108,8 +117,11 @@ def slide(im, window, width, height):
 		elif (pos + 1) % window == 0:
 			# If we are at the edge of a window
 			# set new max 
-			max[count] = innerMax
-			innerMax = 0
+			max[count] = exemplar
+			if minMax:
+				exemplar = 0
+			else:
+				exemplar = 100000
 			count += 1
 	# print("inital loop {} ".format(time.time() - t1))
 	
@@ -178,7 +190,7 @@ if __name__ == "__main__":
 	# pp.pprint(win)
 	t = time.time()
 
-	# slide(win, 3, 720, 1200)
+	# slide(win, 3, 720, 1200, True)
 	slidingWindow(win, 3)
 	print("time took : {} ".format(time.time() - t))
 	# for idx , x in enumerate(win):
