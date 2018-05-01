@@ -15,13 +15,13 @@ for images in os.listdir('./testImages'):
 
 	if not (os.path.exists('./max/' + images + '/')):
 		os.makedirs('./max/' + images + '/')
-	elif not(os.path.exists('./min/' + images + '/')):
+	if not(os.path.exists('./min/' + images + '/')):
 		os.makedirs('./min/' + images + '/')
 		
 	t = time.time()
 	for both in range(0, 2):
 		minMax = not minMax
-		for win in range(1, min(100, width, height):
+		for win in range(1, min(100, width, height)):
 			image = Image.open("./testImages/" + images)#.convert('L')
 			px = list(image.getdata())
 
