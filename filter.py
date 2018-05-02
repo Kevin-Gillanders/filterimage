@@ -45,6 +45,10 @@ def getHSIHue(R, G, B):
 	# print("top : ", top)
 	# print("bot : ", bot)
 	
+	if top == 0 or bot == 0:
+		top += 0.000001
+		bot += 0.000001
+	
 	val = top / bot
 	if val > 1:
 		val = 1.0
@@ -61,6 +65,12 @@ def getHSIIntensity(R, G, B):
 
 
 def getHSISaturation(R, G, B, intensity):
+	if R == 0:
+		R += 1
+	if G == 0:
+		G += 1
+	if B == 0:
+		B += 1
 	return 1 - (3 / (R + G + B) * min(R, B, G))
 	
 		
@@ -125,7 +135,7 @@ def getColours(h, c, x, m):
 	elif h >= 300 and h < 360:
 		R, G, B = (c, 0, x)
 	
-	return ((R + m) * 255, (G + m) * 255, (B + m) * 255)
+	return (int((R + m) * 255), int((G + m) * 255), int((B + m) * 255))
 	
 
 def HSLtoRGB(hsl):
@@ -240,11 +250,15 @@ def HSItoRGB(hsi):
 	##		r = 3 * i - b - g
 
 
-	return (r*255, g*255, b*255)
+	return (int(r*255), int(g*255), int(b*255))
 
 	
-def breakdownImage(im, width, height):
-	pixels = image.load()
+def breakdownImage(im, width, height, type):
+	# NEVER USE PIXEL OBJECT
+	pixels = list(im.getdata())
+	
+	print(width)
+	
 	
 	hslIm = []  
 	hsvIm = [] 
@@ -253,29 +267,101 @@ def breakdownImage(im, width, height):
 	hsvrgbIm = [] 
 	hsirgbIm = []
 	
-	for y in range(0, width):
-		for x in range(0, height):
-			pix = pixels[y, x]
-		
-			hslIm.append( RGBtoHSL(pix))
+	for idx, pix in enumerate(pixels):
+		# pix = pixels[y, x]
+		# print(idx)
+		if type == 'hsl':
+			# tmp.append( RGBtoHSL(pix))
+			hslIm.append(  RGBtoHSL(pix))
+		elif type == 'hsv':
 			hsvIm.append( RGBtoHSV(pix))
+		elif type == 'hsi':
 			hsiIm.append( RGBtoHSI(pix))
-	#TODO decide if this should be 1D of multi dim
-	hslrgbIm = list(map(HSLtoRGB, hslIm))
-	hsvrgbIm = list(map(HSVtoRGB, hsvIm))
-	hsirgbIm = list(map(HSItoRGB, hsiIm))
+		# if idx == width:
+			# print(idx)
+			# print(hslIm)
+			# x = 0/0
+		# if type == 'hsl':
+			# print(len(tmp))
+			# hslIm.append(tmp)
+		# elif type == 'hsv':
+			# hsvIm.append(tmp)
+		# elif type == 'hsi':
+			# hsiIm.append(tmp)
+		# print(tmp)
+		# x = 0/0
+	# for y in range(0, width):
+		# tmp = []
+		# for x in range(0, height):
+			# pix = pixels[y, x]
+			# print(x)
+			# if type == 'hsl':
+				# tmp.append( RGBtoHSL(pix))
+				# tmp.append( pix)
+			# elif type == 'hsv':
+				# tmp.append( RGBtoHSV(pix))
+			# elif type == 'hsi':
+				# tmp.append( RGBtoHSI(pix))
+		# if type == 'hsl':
+			# print(len(tmp))
+			# hslIm.append(tmp)
+		# elif type == 'hsv':
+			# hsvIm.append(tmp)
+		# elif type == 'hsi':
+			# hsiIm.append(tmp)
+		# print(tmp)
+		# x = 0/0
 	
-	return hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm
+
+	# for y in range(0, width):
+		# for x in range(0, height):
+		
+	if type == 'hsl':
+		for pix in hslIm:
+			hslrgbIm.append(HSLtoRGB( pix))
+	elif type == 'hsv':
+		for pix in hsvIm:
+			hsvrgbIm.append( HSVtoRGB(pix))
+	elif type == 'hsi':
+		for pix in hsiIm:
+			hsirgbIm.append( HSItoRGB(pix))
+			
+	#TODO decide if this should be 1D of multi dim
+	if type == 'hsl':
+		print(len(hslrgbIm))
+		return hslIm, hslrgbIm
+	elif type == 'hsv':
+		return hsvIm, hsvrgbIm
+	elif type == 'hsi':
+		return hsiIm, hsirgbIm
+	# if type == 'hsl':
+		# hslrgbIm = list(map(HSLtoRGB, hslIm))
+		# return hslIm, hslrgbIm
+	# elif type == 'hsv':
+		# hsvrgbIm = list(map(HSVtoRGB, hsvIm))
+		# return hsvIm, hsvrgbIm
+	# elif type == 'hsi':
+		# hsirgbIm = list(map(HSItoRGB, hsiIm))
+		# return hsiIm, hsirgbIm
+	
+	# return hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm
 
 	
-image = Image.open("Jelly_Beans.jpg")#.convert('L')
+	
+	
+image = Image.open("./testImages/cat.png")#.convert('L')
+# image = Image.open("./testImages/angleline.jpg")#.convert('L')
+# image = Image.open("./testImages/square.jpg")#.convert('L')
+# image = Image.open("./testImages/test.png")#.convert('L')
+# image = Image.open("./Jelly_Beans.jpg")#.convert('L')
 
 width, height = image.size
 
 print(width, height)
 px = image.load()
 
-hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm = breakdownImage(image, width, height )
+# hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm = breakdownImage(image, width, height )
+hslIm, hslrgbIm = breakdownImage(image, width, height, 'hsi')
 # count = 0 
 # with open('hsltest.txt', 'w') as r:
 	# for x, y in zip(hsiIm, hsirgbIm):
@@ -286,12 +372,12 @@ hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm = breakdownImage(image, width,
 			# break
 window = 0
 
-print(window)
+print(px[0,0], hslIm[0][0], hslrgbIm[0])
 # for idx, x in enumerate(hsvrgbIm):
 	
 	
-
-		
+image.putdata(hslrgbIm)
+image.save('./maxWindowSize.png')		
 # print(hslIm)
 # print()
 
