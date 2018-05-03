@@ -2,13 +2,14 @@ from PIL import Image
 import window
 import time
 import os
+import filter
 
 print(os.listdir('./testImages'))
 
 for images in os.listdir('./testImages'):
 	image = Image.open("./testImages/" + images)#.convert('L')
 	win = 3
-	minMax = False
+	minMax = True
 	width, height = image.size
 	size = min(width, height)
 	print(width, height)
@@ -23,8 +24,9 @@ for images in os.listdir('./testImages'):
 		minMax = not minMax
 		for win in range(1, min(100, width, height)):
 			image = Image.open("./testImages/" + images)#.convert('L')
-			px = list(image.getdata())
-
+			px , tmp = filter.breakdownImage(image, width, height, 'hsl') 
+			
+			# print(px)
 			red, green, blue = zip(*px)
 			red = list(red)
 			green = list(green)
@@ -41,6 +43,9 @@ for images in os.listdir('./testImages'):
 
 			px = zip(red, green, blue)
 			px = list(px)
+			tmp = []
+			for pix in px:
+				tmp.append(filter.HSLtoRGB( pix))
 			# print(px[0])
 
 			# print(px)
@@ -51,11 +56,11 @@ for images in os.listdir('./testImages'):
 				# px[y] = (0, px[y][1], 0)
 				# px[y] = (0, 0, px[y][2])
 
-			image.putdata(px)
+			image.putdata(tmp)
 			if minMax:
-				image.save('./max/' + images + '/' + str(win)+'WindowSize.jpeg', 'jpeg')
+				image.save('./max/' + images + '/' + str(win)+'WindowSize.png')
 			else:
-				image.save('./min/' + images + '/' + str(win)+'WindowSize.jpeg', 'jpeg')
+				image.save('./min/' + images + '/' + str(win)+'WindowSize.png')
 			# image.show()
 
 print('it took : {}'.format(time.time()-t))

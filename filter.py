@@ -347,64 +347,64 @@ def breakdownImage(im, width, height, type):
 	# return hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm
 
 	
-	
-	
-image = Image.open("./testImages/cat.png")#.convert('L')
-# image = Image.open("./testImages/angleline.jpg")#.convert('L')
-# image = Image.open("./testImages/square.jpg")#.convert('L')
-# image = Image.open("./testImages/test.png")#.convert('L')
-# image = Image.open("./Jelly_Beans.jpg")#.convert('L')
+if __name__ == "__main__":
+	# image = Image.open("./testImages/cat.png")#.convert('L')
+	image = Image.open("./testImages/baboon.png")#.convert('L')
+	# image = Image.open("./testImages/angleline.jpg")#.convert('L')
+	# image = Image.open("./testImages/square.jpg")#.convert('L')
+	# image = Image.open("./testImages/test.png")#.convert('L')
+	# image = Image.open("./Jelly_Beans.jpg")#.convert('L')
 
-width, height = image.size
+	width, height = image.size
 
-print(width, height)
-px = image.load()
+	print(width, height)
+	px = image.load()
 
-# hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm = breakdownImage(image, width, height )
-hslIm, hslrgbIm = breakdownImage(image, width, height, 'hsi')
-# count = 0 
-# with open('hsltest.txt', 'w') as r:
-	# for x, y in zip(hsiIm, hsirgbIm):
-		# r.write("{}\n{}\n{}\n=========\n".format(x, y, px[0, count % width]))
-		# print(px[count % height, count % width], count)
-		# count += 1
-		# if count == 200:
-			# break
-window = 0
+	# hslIm, hsvIm, hsiIm, hslrgbIm, hsvrgbIm, hsirgbIm = breakdownImage(image, width, height )
+	hslIm, hslrgbIm = breakdownImage(image, width, height, 'hsi')
+	# count = 0 
+	# with open('hsltest.txt', 'w') as r:
+		# for x, y in zip(hsiIm, hsirgbIm):
+			# r.write("{}\n{}\n{}\n=========\n".format(x, y, px[0, count % width]))
+			# print(px[count % height, count % width], count)
+			# count += 1
+			# if count == 200:
+				# break
+	window = 0
 
-print(px[0,0], hslIm[0][0], hslrgbIm[0])
-# for idx, x in enumerate(hsvrgbIm):
-	
-	
-image.putdata(hslrgbIm)
-image.save('./maxWindowSize.png')		
-# print(hslIm)
-# print()
-
-
-# print("RGB : {}\n".format(pix))
+	print(px[0,0], hslIm[0][0], hslrgbIm[0])
+	# for idx, x in enumerate(hsvrgbIm):
+		
+		
+	image.putdata(hslrgbIm)
+	image.save('./maxWindowSize.png')		
+	# print(hslIm)
+	# print()
 
 
-# print("Hue : {}\nSaturation : {}\nValue : {}\n".format(*hsv))
-# print("HSV to RGB : {}\n".format(hsvrgb))
+	# print("RGB : {}\n".format(pix))
 
 
-# print("Hue : {}\nSaturation : {}\nLuminence : {}\n".format(*hsl))
-# print("HSL to RGB : {}\n".format(hslrgb))
+	# print("Hue : {}\nSaturation : {}\nValue : {}\n".format(*hsv))
+	# print("HSV to RGB : {}\n".format(hsvrgb))
 
 
-# print("Hue : {}\nSaturation : {}\nIntensity : {}".format(*hsi))
-# print("HSI to RGB : {}\n".format(hsirgb))
+	# print("Hue : {}\nSaturation : {}\nLuminence : {}\n".format(*hsl))
+	# print("HSL to RGB : {}\n".format(hslrgb))
+
+
+	# print("Hue : {}\nSaturation : {}\nIntensity : {}".format(*hsi))
+	# print("HSI to RGB : {}\n".format(hsirgb))
 
 
 
-# hue = [i/sum(pix)]
-# top = ((R - G) + (R - B))
-# bot = 2 * (math.sqrt(math.pow(R - G, 2) + (R-B) * (G - B)) )
-# hue = math.acos(top/bot)
+	# hue = [i/sum(pix)]
+	# top = ((R - G) + (R - B))
+	# bot = 2 * (math.sqrt(math.pow(R - G, 2) + (R-B) * (G - B)) )
+	# hue = math.acos(top/bot)
 
-# print(sum(pix))
-# print("Hue : {}".format(hue))
+	# print(sum(pix))
+	# print("Hue : {}".format(hue))
 
 
-# image.show()
+	# image.show()
