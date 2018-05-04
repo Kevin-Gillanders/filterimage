@@ -9,7 +9,7 @@ print(os.listdir('./testImages'))
 for images in os.listdir('./testImages'):
 	image = Image.open("./testImages/" + images)#.convert('L')
 	win = 3
-	minMax = True
+	minMax = False
 	width, height = image.size
 	size = min(width, height)
 	print(width, height)
@@ -24,7 +24,8 @@ for images in os.listdir('./testImages'):
 		minMax = not minMax
 		for win in range(1, min(100, width, height)):
 			image = Image.open("./testImages/" + images)#.convert('L')
-			px , tmp = filter.breakdownImage(image, width, height, 'hsl') 
+			# px , tmp = filter.breakdownImage(image, width, height, 'hsl') 
+			px = list(image.getdata()) 
 			
 			# print(px)
 			red, green, blue = zip(*px)
@@ -43,10 +44,12 @@ for images in os.listdir('./testImages'):
 
 			px = zip(red, green, blue)
 			px = list(px)
-			tmp = []
-			for pix in px:
-				tmp.append(filter.HSLtoRGB( pix))
+			
+			# tmp = []
+			# for pix in px:
+				# tmp.append(filter.HSLtoRGB( pix))
 			# print(px[0])
+			# image.putdata(tmp)
 
 			# print(px)
 
@@ -56,7 +59,7 @@ for images in os.listdir('./testImages'):
 				# px[y] = (0, px[y][1], 0)
 				# px[y] = (0, 0, px[y][2])
 
-			image.putdata(tmp)
+			image.putdata(px)
 			if minMax:
 				image.save('./max/' + images + '/' + str(win)+'WindowSize.png')
 			else:
