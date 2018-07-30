@@ -48,3 +48,8 @@ This seems a litte unintuitive, but once we look into how RBG (works)[https://ww
 **cat, 24 min pixel window**
 
 ![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/min/cat.png/24WindowSize.jpeg)
+
+
+As we can see from the examples, the max filter is much lighter and emphasises whites. 
+
+While the max 
