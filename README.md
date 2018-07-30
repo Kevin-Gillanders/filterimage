@@ -6,7 +6,7 @@ This is a small image processing program which will pixelate an image using min 
 A python 3 environment
 
 ## Run
-To run the project all you have to do is download the repo and run test.py
+To run a demo of the project all you have to do is download the repo and run test.py
 
 This will then : 
 1. Go into the testImages folder
