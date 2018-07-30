@@ -27,8 +27,24 @@ This seems a litte unintuitive, but once we look into how RBG (works)[https://ww
 
 ### Cat
 **Original cat, no filter**
+
 ![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/max/cat.png/1WindowSize.jpeg)
 
-**cat, 10 pixel window**
+**cat, 10 max pixel window**
 
 ![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/max/cat.png/10WindowSize.jpeg)
+
+
+**cat, 25 max pixel window**
+
+![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/max/cat.png/25WindowSize.jpeg)
+
+
+**cat, 10 min pixel window**
+
+![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/min/cat.png/10WindowSize.jpeg)
+
+
+**cat, 25 min pixel window**
+
+![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/min/cat.png/25WindowSize.jpeg)
