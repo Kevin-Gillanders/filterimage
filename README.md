@@ -52,4 +52,4 @@ This seems a litte unintuitive, but once we look into how RBG (works)[https://ww
 
 As we can see from the examples, the max filter is much lighter and emphasises whites. 
 
-While the max 
+While the min filter dilates the blacks, drawing out a black bar on the left hand side of the image
