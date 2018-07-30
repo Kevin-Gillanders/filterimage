@@ -13,3 +13,15 @@ This will then :
 2. Cycle through all images in the folder
 3. Generating fully, a full min and max series, increasing pixelation by 1 each time
 4. The pixelated pictures will be placed in their corresponding folder in the min and max folders
+
+## Filters 
+
+The filters Minimun and maximum, iterate over all pixels in the image in a window. This window size can be increased for increased pixelation.
+
+The filter selects the smallest and largest value in the window, respectively, in red, green and blue.
+The maximum filter favours lighter colours (e.g. white and yellow). Whereas the minimum filter favours dark colours such as black.
+
+This seems a litte unintuitive, but once we look into how RBG (works)[https://www.w3schools.com/colors/colors_rgb.asp] it makes perfect sense.
+
+## Examples
+
