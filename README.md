@@ -26,5 +26,9 @@ This seems a litte unintuitive, but once we look into how RBG (works)[https://ww
 ## Examples
 
 ### Cat
-**Original**
+**Original cat, no filter**
 ![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/max/cat.png/1WindowSize.jpeg)
+
+**cat, 10 pixel window**
+
+![Cat, no filter](https://github.com/Kevin-Gillanders/filterimage/blob/master/examples/max/cat.png/10WindowSize.jpeg)
